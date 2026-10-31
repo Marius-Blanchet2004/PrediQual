@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PrédiQual : étude de vos données</title>
+<link rel="stylesheet" href="site.css">
+<!-- La démo pèse 6 Mo : on la charge pendant l'étude pour qu'elle s'ouvre tout de suite -->
+<link rel="prefetch" href="demo.html">
+<style>
+  body { background: var(--gris-clair); }
+  .barre { height: 6px; border-radius: 999px; background: var(--bord); overflow: hidden; }
+  .barre div { height: 100%; width: 0; background: var(--vert); transition: width .6s ease; }
+  .taches { list-style: none; padding: 0; margin: 0; max-width: 640px; }
+  .taches li { display: flex; align-items: center; gap: 1rem; padding: 1.05rem 0; border-bottom: 1px solid var(--bord);
+               font-size: 1.08rem; color: #b3b8bb; transition: color .3s; }
+  .taches li .rond { flex: none; width: 1.6rem; height: 1.6rem; border-radius: 50%; border: 2px solid currentColor;
+                     display: grid; place-items: center; font-size: .8rem; }
+  .taches li.en-cours { color: var(--noir); }
+  .taches li.en-cours .rond { border-color: var(--vert); border-top-color: transparent; animation: tourne .8s linear infinite; }
+  .taches li.fait { color: var(--noir); }
+  .taches li.fait .rond { background: var(--vert); border-color: var(--vert); color: var(--noir); }
+  .taches li.fait .rond::after { content: "✓"; font-weight: 700; }
+  .taches li small { margin-left: auto; color: var(--gris); font-size: .85rem; }
+  @keyframes tourne { to { transform: rotate(360deg); } }
+
+  /* Messages sur l'hébergement, qui tournent pendant l'étude */
+  .securite { display: flex; align-items: center; gap: .8rem; max-width: 640px; min-height: 3.2rem; margin: 0 0 2rem;
+              padding: .8rem 1.2rem; border-radius: 14px; background: var(--blanc); border: 1px solid var(--bord); }
+  .securite svg { flex: none; width: 1.2rem; height: 1.2rem; color: var(--vert-fonce); }
+  .securite span { transition: opacity .4s; }
+  .securite span.cache { opacity: 0; }
+  .avancement { display: flex; align-items: center; gap: 1rem; max-width: 640px; margin: 0 0 2.5rem; }
+  .avancement .barre { flex: 1; }
+  .avancement b { font-variant-numeric: tabular-nums; font-size: .95rem; min-width: 3em; text-align: right; }
+  .fin { margin: 2rem 0 0; font-weight: 600; color: var(--vert-fonce); opacity: 0; transition: opacity .4s; }
+  .fin.vu { opacity: 1; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="conteneur">
+    <a class="logo" href="index.html">Prédi<span>Qual</span></a>
+  </div>
+</header>
+
+<section class="etape apparait">
+  <div class="conteneur">
+    <p class="kicker"><span>02</span> · Étude</p>
+    <h2>Étude de vos données</h2>
+    <p class="intro">Les mêmes étapes qu'un analyste qualité, faites sur tout l'historique.</p>
+    <div class="securite">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+      </svg>
+      <span id="message"></span>
+    </div>
+    <div class="avancement">
+      <div class="barre"><div id="progression"></div></div>
+      <b id="pourcentage">0 %</b>
+    </div>
+    <ul class="taches" id="taches"></ul>
+    <p class="fin" id="fin">Analyse terminée, ouverture des résultats…</p>
+  </div>
+</section>
+
+<script>
+  // Les étapes de l'étude et leur durée affichée (ms), environ 13 s au total
+  const TACHES = [
+    ["Anonymisation des noms et des références", 1200],
+    ["Envoi chiffré vers nos serveurs en France", 1100],
+    ["Lecture des 10 000 lots", 1300],
+    ["Contrôle des colonnes et des valeurs manquantes", 1200],
+    ["Mise de côté de 20 % des lots pour la vérification", 900],
+    ["Comparaison de 8 modèles", 3200, "modeles"],
+    ["Recherche des plages de réglages à viser", 1800],
+    ["Vérification sur les 2 000 lots mis de côté", 1400],
+    ["Préparation des graphiques", 1000]
+  ];
+  const MESSAGES = [
+    "Vos données tournent sur nos serveurs en France.",
+    "Modèles open source, aucun service tiers.",
+    "Noms et références anonymisés avant l'étude.",
+    "Vos données ne sont ni revendues ni partagées."
+  ];
+
+  // Les attentes font partie du parcours : elles restent même avec les animations réduites
+  const attendre = ms => new Promise(r => setTimeout(r, ms));
+  // Le prix moyen d'un lot arrive de la page des données (?prix=146)
+  const prix = +new URLSearchParams(location.search).get("prix") || 146;
+
+  // Les messages sur l'hébergement changent toutes les 3 s
+  function faireTournerMessages() {
+    const el = document.getElementById("message");
+    let n = 0;
+    el.textContent = MESSAGES[0];
+    return setInterval(() => {
+      el.classList.add("cache");
+      setTimeout(() => { n = (n + 1) % MESSAGES.length; el.textContent = MESSAGES[n]; el.classList.remove("cache"); }, 400);
+    }, 3000);
+  }
+
+  // Les étapes se cochent une à une, puis on ouvre les résultats
+  (async function () {
+    const liste = document.getElementById("taches");
+    const barre = document.getElementById("progression");
+    const pourcentage = document.getElementById("pourcentage");
+    const total = TACHES.reduce((s, t) => s + t[1], 0);
+    let ecoule = 0;
+    const avancer = ms => {
+      ecoule += ms;
+      const p = Math.round(ecoule / total * 100);
+      barre.style.width = p + "%";
+      pourcentage.textContent = p + " %";
+    };
+
+    liste.innerHTML = TACHES.map(t => `<li><span class="rond"></span>${t[0]}${t[2] ? "<small></small>" : ""}</li>`).join("");
+    const minuteur = faireTournerMessages();
+    await attendre(600);
+    const items = liste.children;
+    for (let i = 0; i < TACHES.length; i++) {
+      const [, duree, type] = TACHES[i];
+      items[i].className = "en-cours";
+      if (type === "modeles") {
+        // Un compteur 1/8, 2/8… pendant la comparaison des modèles
+        const compteur = items[i].querySelector("small");
+        for (let m = 1; m <= 8; m++) {
+          compteur.textContent = m + "/8";
+          await attendre(duree / 8);
+          avancer(duree / 8);
+        }
+        compteur.textContent = "meilleur gardé";
+      } else {
+        await attendre(duree);
+        avancer(duree);
+      }
+      items[i].className = "fait";
+    }
+    clearInterval(minuteur);
+    document.getElementById("fin").classList.add("vu");
+    await attendre(1200);
+    location.href = "demo.html?prix=" + prix;
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PrédiQual : moins de non-qualité dans votre usine</title>
+<meta name="description" content="PrédiQual lit les données de production de votre usine et vous dit à quels réglages produire pour faire moins de rebuts.">
+<link rel="stylesheet" href="site.css">
+<style>
+  /* Hero plein écran : vidéo d'atelier en fond, tout le contenu centré */
+  .hero { position: relative; min-height: 100vh; min-height: 100svh; display: flex; align-items: center; justify-content: center;
+          text-align: center; color: var(--blanc); background: var(--noir) url(img/usine/machine.jpg) center / cover; overflow: hidden; }
+  .hero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .hero::after { content: ""; position: absolute; inset: 0;
+                 background: radial-gradient(ellipse at center, rgba(11,13,14,.55) 0%, rgba(11,13,14,.8) 100%); }
+  .hero .contenu { position: relative; z-index: 1; width: 100%; max-width: 1000px; padding: 6rem 1.5rem; }
+  .hero .kicker { color: rgba(255,255,255,.75); }
+  .hero h1 { font-size: clamp(2.8rem, 7vw, 5.6rem); font-weight: 800; }
+  .hero h1 em { font-style: normal; color: var(--vert); }
+  .hero p { font-size: clamp(1.1rem, 1.8vw, 1.4rem); max-width: 30em; margin: 1.6rem auto 3rem; color: rgba(255,255,255,.85); }
+
+  /* Le gros bouton, avec un halo vert qui pulse */
+  .bouton.geant { font-size: clamp(1.2rem, 2vw, 1.5rem); padding: 1.15em 2.4em; background: var(--vert); color: var(--noir);
+                  font-weight: 800; animation: halo 2.2s ease-out infinite; }
+  .bouton.geant:hover { transform: translateY(-3px) scale(1.03); }
+  @keyframes halo { 0% { box-shadow: 0 0 0 0 rgba(47,191,113,.6); } 100% { box-shadow: 0 0 0 26px rgba(47,191,113,0); } }
+</style>
+</head>
+<body>
+
+<header class="sur-video">
+  <div class="conteneur">
+    <a class="logo" href="index.html">Prédi<span>Qual</span></a>
+  </div>
+</header>
+
+<section class="hero">
+  <!-- Vidéo Mixkit 47755 (licence libre) : soudeurs dans un atelier métal ; la photo sert d'attente pendant le chargement -->
+  <video src="img/usine/fond.mp4" poster="img/usine/machine.jpg" autoplay muted loop playsinline aria-hidden="true"></video>
+  <div class="contenu">
+    <h1>Détectez les lots <em>défectueux</em> avant qu’ils sortent de la machine.</h1>
+    <p>PrédiQual transforme vos données capteurs en alertes qualité.</p>
+    <a class="bouton geant" href="donnees.html">Démonstration avec des données d'usine <span aria-hidden="true">→</span></a>
+  </div>
+</section>
+
+</body>
+</html>
