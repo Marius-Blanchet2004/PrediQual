@@ -12,6 +12,7 @@
   --bleu-clair: #eef3fd;
 }
 * { box-sizing: border-box; }
+html { font-size: 90%; } /* tout 10 % plus petit */
 body { margin: 0; font-family: "Inter", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
        color: var(--noir); background: var(--blanc); line-height: 1.5; -webkit-font-smoothing: antialiased; }
 a { color: inherit; }
