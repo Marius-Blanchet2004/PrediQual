@@ -32,13 +32,13 @@ h1, h2, h3 { letter-spacing: -0.03em; line-height: 1.05; margin: 0; }
 /* En-tête : barre noire, ou posée sur la vidéo de l'accueil */
 header { background: var(--noir); color: var(--blanc); }
 header.sur-video { position: absolute; top: 0; left: 0; right: 0; z-index: 10; background: none; }
-header .conteneur { display: flex; justify-content: space-between; align-items: center; height: 88px; }
+header .conteneur { display: flex; justify-content: space-between; align-items: center; height: 64px; }
 .logo { font-weight: 800; font-size: 2rem; letter-spacing: -0.04em; text-decoration: none; }
 .logo span { color: var(--vert); }
 
 /* Les étapes du parcours */
-.etape { padding: 5rem 0 7rem; }
-.etape h2 { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; margin-bottom: 1.2rem; }
+.etape { padding: 3.5rem 0 5rem; }
+.etape h2 { font-size: clamp(1.7rem, 3.2vw, 2.6rem); font-weight: 800; margin-bottom: 1.2rem; }
 .etape .intro { color: var(--gris); font-size: 1.1rem; max-width: 34em; margin: 0 0 2.5rem; }
 .apparait { animation: monte .7s ease both; }
 @keyframes monte { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
