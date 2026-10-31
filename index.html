@@ -14,10 +14,11 @@
   .hero::after { content: ""; position: absolute; inset: 0;
                  background: radial-gradient(ellipse at center, rgba(11,13,14,.55) 0%, rgba(11,13,14,.8) 100%); }
   .hero .contenu { position: relative; z-index: 1; width: 100%; max-width: 1000px; padding: 6rem 1.5rem; }
-  .hero .kicker { color: rgba(255,255,255,.75); }
+  .hero .kicker { color: rgba(255,255,255,.9); font-size: clamp(1.3rem, 2.4vw, 1.9rem); font-weight: 600;
+                 text-transform: none; letter-spacing: 0; margin: 0 auto .6rem; }
   .hero h1 { font-size: clamp(2.4rem, 5.4vw, 4.2rem); font-weight: 800; }
   .hero h1 em { font-style: normal; color: var(--vert); }
-  .hero p { font-size: clamp(1.1rem, 1.8vw, 1.4rem); max-width: 30em; margin: 1.6rem auto 3rem; color: rgba(255,255,255,.85); }
+  .hero p { font-size: clamp(1.25rem, 2.2vw, 1.75rem); max-width: 32em; margin: 1.6rem auto 3rem; color: rgba(255,255,255,.85); }
 
   /* Le gros bouton, avec un halo vert qui pulse */
   .bouton.geant { font-size: clamp(1.2rem, 2vw, 1.5rem); padding: 1.15em 2.4em; background: var(--vert); color: var(--noir);
@@ -38,8 +39,9 @@
   <!-- Vidéo Mixkit 47755 (licence libre) : soudeurs dans un atelier métal ; la photo sert d'attente pendant le chargement -->
   <video src="img/usine/fond.mp4" poster="img/usine/machine.jpg" autoplay muted loop playsinline aria-hidden="true"></video>
   <div class="contenu">
-    <h1>Détectez les lots <em>défectueux</em> avant qu’ils sortent de la machine.</h1>
-    <p>PrédiQual transforme vos données capteurs en alertes qualité.</p>
+    <p class="kicker">Chers industriels,</p>
+    <h1>Vos rebuts vous coûtent <span style="white-space: nowrap"><em>très cher</em>.</span></h1>
+    <p>Mais rassurez-vous, PrédiQual est là pour transformer vos données capteurs en alertes qualité !</p>
     <a class="bouton geant" href="donnees.html">Démonstration avec des données d'usine <span aria-hidden="true">→</span></a>
   </div>
 </section>
