@@ -6,7 +6,7 @@ Site statique publié par GitHub Pages : https://marius-blanchet2004.github.io/P
 - `donnees.html` : « Bravo », puis un exemple de 20 lots avec leur prix de vente (moyenne 146 €).
 - `analyse.html` : l'étude simulée (environ 13 s), qui ouvre ensuite `demo.html`. Le prix moyen d'un lot (146 €) est écrit en dur dans `demo.html`.
 - `site.css` : les styles communs à ces trois pages.
-- `img/usine/fond.mp4` : vidéo de la couverture, flacons sur une ligne de conditionnement (Mixkit 33003, licence libre) ; `img/usine/flacons.jpg` est son image d'attente.
+- `img/usine/flacons.mp4` : vidéo de la couverture, flacons sur une ligne de conditionnement (Mixkit 33003, licence libre) ; `img/usine/flacons.jpg` est son image d'attente.
 - `demo.html` : la page de résultats (les plages de réglages, le gain estimé, puis « En savoir plus » avec les 2 graphiques 3D et la méthode). Générée au départ par `ml/nuage.py` du dépôt privé du MVP, puis retouchée à la main (ordre des sections, textes) : ce n'est plus une copie telle quelle de `nuage_3d.html`.
 - `img/apercu_cube.png` : capture du cube, affichée sur l'accueil.
 - `img/marius.jpg`, `img/matthieu.jpg` : portraits des fondateurs, dans le bandeau de contact de la démo.
