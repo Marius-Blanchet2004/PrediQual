@@ -48,8 +48,7 @@
 <section class="etape apparait">
   <div class="conteneur">
     <p class="kicker"><span>02</span> · Étude</p>
-    <h2>Étude de vos données</h2>
-    <p class="intro">Les mêmes étapes qu'un analyste qualité, faites sur tout l'historique.</p>
+    <h2 style="margin-bottom: 2rem">Étude de vos données</h2>
     <div class="securite">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
         <rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>
@@ -70,13 +69,13 @@
   const TACHES = [
     ["Anonymisation des noms et des références", 1200],
     ["Envoi chiffré vers nos serveurs en France", 1100],
-    ["Lecture des 10 000 lots", 1300],
-    ["Contrôle des colonnes et des valeurs manquantes", 1200],
-    ["Mise de côté de 20 % des lots pour la vérification", 900],
-    ["Comparaison de 8 modèles", 3200, "modeles"],
+    ["Lecture de toute la donnée", 1300],
+    ["Nettoyage de la donnée", 1200],
+    ["Comparaison de 8 modèles IA", 3200, "modeles"],
+    ["Meilleur modèle gardé", 700],
     ["Recherche des plages de réglages à viser", 1800],
-    ["Vérification sur les 2 000 lots mis de côté", 1400],
-    ["Préparation des graphiques", 1000]
+    ["Vérification sur de nouvelles données", 1400],
+    ["Préparation de la fiche technique pour le client", 1200]
   ];
   const MESSAGES = [
     "Vos données tournent sur nos serveurs en France.",
@@ -87,8 +86,6 @@
 
   // Les attentes font partie du parcours : elles restent même avec les animations réduites
   const attendre = ms => new Promise(r => setTimeout(r, ms));
-  // Le prix moyen d'un lot arrive de la page des données (?prix=146)
-  const prix = +new URLSearchParams(location.search).get("prix") || 146;
 
   // Les messages sur l'hébergement changent toutes les 3 s
   function faireTournerMessages() {
@@ -130,7 +127,6 @@
           await attendre(duree / 8);
           avancer(duree / 8);
         }
-        compteur.textContent = "meilleur gardé";
       } else {
         await attendre(duree);
         avancer(duree);
@@ -140,7 +136,7 @@
     clearInterval(minuteur);
     document.getElementById("fin").classList.add("vu");
     await attendre(1200);
-    location.href = "demo.html?prix=" + prix;
+    location.href = "demo.html";
   })();
 </script>
 

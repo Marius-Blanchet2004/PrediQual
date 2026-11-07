@@ -30,7 +30,7 @@
   header nav a { text-decoration: none; opacity: .8; font-size: .95rem; }
   header nav a:hover { opacity: 1; }
 
-  .graphique { padding: 3rem 0 0; }
+  .graphique { padding: 2.5rem 0 0; }
   .graphique h2, .bloc h2 { font-size: clamp(1.6rem, 2.8vw, 2.1rem); font-weight: 800; margin-bottom: 1rem; max-width: 22em; }
   .texte { color: var(--gris); font-size: 1.05rem; max-width: 42em; margin: 0 0 1.8rem; }
   .carte { background: var(--blanc); border: 1px solid var(--bord); border-radius: 20px; padding: 1rem; overflow: hidden; }
@@ -65,25 +65,29 @@
   .etat.ko { background: #fdeaea; color: var(--rouge); }
   .etat.neutre { background: var(--gris-clair); color: var(--gris); }
 
-  /* La promesse, le gain et le prix */
+  /* La promesse et le gain */
   .promesse { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; max-width: 24em; margin: 0 0 2.5rem; }
   .promesse .rouge { color: var(--rouge); }
   .promesse .vert { color: var(--vert-fonce); }
-  .deux { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
-  .carte-gain, .carte-prix { border-radius: 20px; padding: 2.2rem 2rem; }
+  .bloc .sous-titre { font-size: clamp(1.3rem, 2.2vw, 1.6rem); margin: 0 0 1rem; }
+  .carte-gain { border-radius: 20px; padding: 2.2rem 2rem; max-width: 760px; }
   .carte-gain { background: var(--noir); color: var(--blanc); }
   .carte-gain p { margin: 0; color: rgba(255,255,255,.7); font-size: 1.05rem; }
   .carte-gain strong { display: block; margin: 1rem 0 .8rem; font-size: clamp(3rem, 6vw, 4.6rem); font-weight: 800;
                        letter-spacing: -0.04em; line-height: 1; color: var(--vert); }
-  .carte-gain small { color: rgba(255,255,255,.5); font-size: .85rem; }
-  .carte-prix { background: var(--blanc); border: 1px solid var(--bord); }
-  .carte-prix strong { display: block; font-size: clamp(2.6rem, 5vw, 3.6rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1; }
-  .carte-prix p { color: var(--gris); margin: .8rem 0 1.6rem; }
-  .carte-prix .kicker { margin: 0 0 .8rem; }
+  .carte-gain small { display: block; color: rgba(255,255,255,.5); font-size: .85rem; }
+  .carte-gain .bouton { margin-top: 1.8rem; }
 
-  .notes > div { max-width: 46em; }
-  .notes h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: .8rem; }
-  .notes p { color: var(--gris); margin: 0; }
+  /* Le résumé de l'algorithme, caché derrière un bouton */
+  .bouton.noir { background: var(--noir); color: var(--blanc); }
+  .algo { max-width: 46em; margin: 0; }
+  .algo summary { list-style: none; cursor: pointer; color: var(--blanc); font-size: 1.3rem; font-weight: 700;
+                  padding: 1.1em 2.2em; }
+  .algo summary::-webkit-details-marker { display: none; }
+  .algo h3 { font-size: 1.3rem; font-weight: 800; margin: 2rem 0 1rem; }
+  .algo ol { margin: 0; padding-left: 1.3rem; color: var(--gris); }
+  .algo li { margin-bottom: .9rem; }
+  .algo li b { color: var(--noir); }
 
   .contact { background: var(--noir); color: var(--blanc); text-align: center; padding: 4.5rem 0; margin-top: 5rem; }
   .contact h2 { font-size: clamp(1.7rem, 3.2vw, 2.6rem); font-weight: 800; }
@@ -109,7 +113,7 @@
            border-top: 1px solid rgba(255,255,255,.1); }
 
   @media (max-width: 860px) {
-    .recos, .deux { grid-template-columns: 1fr; }
+    .recos { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -122,9 +126,87 @@
   </div>
 </header>
 
+<section class="bloc" style="padding-top: 3rem">
+  <div class="conteneur">
+    <p class="kicker"><span>01</span> · Vos réglages</p>
+    <h2>Voici nos 3 recommandations.</h2>
+    <p class="texte">La barre grise couvre tous les réglages vus dans vos données, le segment vert la plage à viser.</p>
+    <div class="recos">
+      <div class="reco">
+        <p class="nom">Vitesse</p>
+        <p class="plage">1 382 <span>à</span> 2 258 <small>tr/min</small></p>
+        <div class="reglette"><i style="left:12.4%; width:51.0%"></i></div>
+        <div class="bornes"><span>1 168</span><span>2 886</span></div>
+      </div>
+      <div class="reco">
+        <p class="nom">Couple</p>
+        <p class="plage">4 <span>à</span> 57 <small>Nm</small></p>
+        <div class="reglette"><i style="left:0.0%; width:72.7%"></i></div>
+        <div class="bornes"><span>4</span><span>77</span></div>
+      </div>
+      <div class="reco">
+        <p class="nom">Usure de l'outil</p>
+        <p class="plage">0 <span>à</span> 202 <small>min</small></p>
+        <div class="reglette"><i style="left:0.0%; width:80.0%"></i></div>
+        <div class="bornes"><span>0</span><span>253</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bloc">
+  <div class="conteneur">
+    <p class="kicker"><span>02</span> · Le gain</p>
+    <p class="promesse">En adoptant ces réglages, et si votre production reste comparable, votre non-qualité passera
+    de <b class="rouge">3,4&nbsp;%</b> à <b class="vert">0,3&nbsp;%</b>.</p>
+    <h3 class="sous-titre">Estimation du retour sur investissement</h3>
+    <div class="carte-gain">
+      <p>Sur vos 10 000 prochains lots, votre usine gagne :</p>
+      <strong id="gain"></strong>
+      <small id="calcul"></small>
+      <a class="bouton vert" href="#contact" id="devis">Demander un devis</a>
+    </div>
+  </div>
+</section>
+<script>
+  // Prix moyen d'un lot : la moyenne des 20 lots montrés sur la page des données
+  (function () {
+    const prix = 146;
+    const lots = 10000, ecart = 0.031;
+    const euros = n => Math.round(n).toLocaleString("fr-FR") + " €";
+    const pct = n => (n * 100).toLocaleString("fr-FR", { maximumFractionDigits: 1 }) + " %";
+    document.getElementById("gain").textContent = euros(ecart * lots * prix);
+    document.getElementById("calcul").textContent =
+      pct(ecart) + " de lots défectueux en moins × " + lots.toLocaleString("fr-FR") + " lots × " + euros(prix) + " (prix moyen d'un lot)";
+  })();
+
+  // « Demander un devis » : la page défile lentement (1 s) jusqu'au bandeau noir, pour qu'on voie
+  // passer les graphiques. Départ et arrivée en douceur (courbe easeInOutCubic).
+  document.getElementById("devis").addEventListener("click", function (e) {
+    e.preventDefault();
+    const depart = scrollY;
+    const arrivee = document.getElementById("contact").getBoundingClientRect().top + scrollY;
+    const duree = 1000;
+    const debut = performance.now();
+    const courbe = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    requestAnimationFrame(function etape(maintenant) {
+      const t = Math.min((maintenant - debut) / duree, 1);
+      scrollTo(0, depart + (arrivee - depart) * courbe(t));
+      if (t < 1) requestAnimationFrame(etape);
+    });
+  });
+</script>
+
+<section class="bloc">
+  <div class="conteneur">
+    <p class="kicker"><span>03</span> · Le détail</p>
+    <h2>En savoir plus</h2>
+  </div>
+</section>
+
 <section class="graphique">
   <div class="conteneur">
-    <p class="kicker"><span>01</span> · Vos lots en 3D · 30/10/2026</p>
+    <p class="kicker">Graphique 1 · Vos lots en 3D</p>
     <h2>Vos lots : verts s'ils sont bons, rouges s'ils sont défectueux.</h2>
     <p class="tourner">Faites tourner le cube. Les verts se regroupent : regardez où.
       <svg viewBox="0 0 60 50" aria-hidden="true"><path d="M4 6 C 30 4, 46 14, 46 42"/><path d="M38 34 L46 44 L53 33"/></svg></p>
@@ -4017,7 +4099,7 @@ return Plotly;
 
 <section class="graphique">
   <div class="conteneur">
-    <p class="kicker"><span>02</span> · La zone verte</p>
+    <p class="kicker">Graphique 2 · La zone verte</p>
     <h2>Si vous voulez créer un bon produit, vous avez intérêt à ce qu'il soit dans le volume vert.</h2>
     <p class="texte">Le volume vert est l'ensemble des réglages où le modèle prévoit moins de
     1,1 % de défauts, soit 3 fois moins que la moyenne. Les boîtes
@@ -4028,96 +4110,41 @@ return Plotly;
 </section>
 
 <section class="bloc">
-  <div class="conteneur">
-    <p class="kicker"><span>03</span> · Les paramètres</p>
-    <h2>Voici nos 3 recommandations.</h2>
-    <p class="texte">La barre grise couvre tous les réglages vus dans vos données, le segment vert la plage à viser.</p>
-    <div class="recos">
-      <div class="reco">
-        <p class="nom">Vitesse</p>
-        <p class="plage">1 382 <span>à</span> 2 258 <small>tr/min</small></p>
-        <div class="reglette"><i style="left:12.4%; width:51.0%"></i></div>
-        <div class="bornes"><span>1 168</span><span>2 886</span></div>
-      </div>
-      <div class="reco">
-        <p class="nom">Couple</p>
-        <p class="plage">4 <span>à</span> 57 <small>Nm</small></p>
-        <div class="reglette"><i style="left:0.0%; width:72.7%"></i></div>
-        <div class="bornes"><span>4</span><span>77</span></div>
-      </div>
-      <div class="reco">
-        <p class="nom">Usure de l'outil</p>
-        <p class="plage">0 <span>à</span> 202 <small>min</small></p>
-        <div class="reglette"><i style="left:0.0%; width:80.0%"></i></div>
-        <div class="bornes"><span>0</span><span>253</span></div>
-      </div>
-    </div>
-    <details>
-      <summary>Voir le détail des boîtes</summary>
-      <div class="tableau">
-        <table>
-          <tr><th>Boîte</th><th>Vitesse (tr/min)</th><th>Couple (Nm)</th><th>Usure de l'outil (min)</th>
-          <th>Lots du test</th><th>Lots bons mesurés (marge)</th><th>Verdict</th></tr>
-          <tr><td>1</td><td>1382 à 2258</td><td>4 à 57</td><td>0 à 202</td><td>1 582</td><td><b>99,7 %</b> (99,4 % à 99,9 %)</td><td><span class='etat'>Recommandée</span></td></tr>
-        </table>
-      </div>
-      <p class="aide">La marge se lit ainsi : avec ce nombre de lots, le vrai taux de lots bons dans la boîte se
-      situe dans cette fourchette, avec 95 % de confiance.</p>
+  <div class="conteneur notes">
+    <details class="algo">
+      <summary class="bouton noir">Comprendre l'algorithme en résumé</summary>
+      <h3>L'algorithme, étape par étape</h3>
+      <ol>
+        <li><b>Mise de côté.</b> Avant tout calcul, 20 % des lots (2 000) sont tirés au hasard et mis de côté,
+        avec la même proportion de défauts que l'ensemble (tirage stratifié). Le modèle ne les voit jamais :
+        ils servent à la vérification finale.</li>
+        <li><b>Comparaison de 8 modèles.</b> SVM linéaire, SVM à noyau RBF, LDA, k plus proches voisins,
+        régression logistique, naive Bayes, random forest et gradient boosting sont entraînés sur les 80 %
+        restants, avec 3 paramètres : vitesse, couple et usure de l'outil. Les hyperparamètres de chacun sont
+        réglés par validation croisée stratifiée en 5 morceaux.</li>
+        <li><b>Choix du meilleur.</b> Les défauts sont rares (3,4 % des lots) : un modèle qui répond toujours
+        « bon » aurait 96,6 % de bonnes réponses sans rien détecter. On classe donc les modèles sur l'average
+        precision de la classe défaut, mesurée en validation croisée, et non sur le taux de bonnes réponses.</li>
+        <li><b>Probabilités de défaut.</b> Les scores du modèle retenu ne sont pas des probabilités. Une
+        calibration isotone, apprise elle aussi en validation croisée, les traduit en probabilité qu'un lot
+        soit défectueux.</li>
+        <li><b>Zone verte.</b> Un réglage est jugé bon quand la probabilité de défaut prévue est au moins 3 fois
+        plus basse que la moyenne, soit sous 1,1 %. Un seuil relatif plutôt que fixe : il garde son sens quel
+        que soit le taux de défauts de l'usine.</li>
+        <li><b>Plages de réglages.</b> Un petit arbre de décision (au plus 4 questions, au moins 50 lots par
+        feuille) apprend à reproduire ce verdict. Chacune de ses feuilles « bon » est une boîte décrite par un
+        intervalle par paramètre : ce sont les plages recommandées. L'arbre donne le même verdict que le modèle
+        sur 92,0 % des lots mis de côté.</li>
+        <li><b>Vérification.</b> Chaque boîte est testée sur les 2 000 lots mis de côté. On mesure son taux de
+        lots bons et un intervalle de confiance à 95 % (méthode exacte de Clopper-Pearson). Une boîte n'est
+        recommandée que si, même au pire de cet intervalle, elle fait moins de défauts que la moyenne. En dessous
+        de 30 lots de vérification, elle n'est pas jugée.</li>
+      </ol>
     </details>
   </div>
 </section>
 
-<section class="bloc">
-  <div class="conteneur">
-    <p class="promesse">Si vous appliquez ces paramètres, je vous garantis que vous réduirez votre non-qualité
-    de <b class="rouge">3,4&nbsp;%</b> à <b class="vert">0,3&nbsp;%</b>.</p>
-    <div class="deux gain">
-      <div class="carte-gain">
-        <p>En supposant que vous continuiez à la même cadence, sur vos 10 000 prochains lots,
-        au prix moyen de <b id="prix-moyen"></b> le lot, vous allez donc gagner :</p>
-        <strong id="gain"></strong>
-        <small id="calcul"></small>
-      </div>
-      <div class="carte-prix">
-        <p class="kicker">Notre offre</p>
-        <strong>499 €</strong>
-        <p>l'abonnement annuel PrédiQual, pour refaire cette étude sur vos propres données.</p>
-        <a class="bouton vert" href="https://calendly.com/mariusblanchet/reunion-start-up" target="_blank" rel="noopener">Faire l'étude sur mes données</a>
-      </div>
-    </div>
-  </div>
-</section>
-<script>
-  // Le prix moyen d'un lot vient de la page des données (?prix=146) ; 146 € par défaut
-  (function () {
-    const prix = +new URLSearchParams(location.search).get("prix") || 146;
-    const lots = 10000, ecart = 0.031;
-    const euros = n => Math.round(n).toLocaleString("fr-FR") + " €";
-    const pct = n => (n * 100).toLocaleString("fr-FR", { maximumFractionDigits: 1 }) + " %";
-    document.getElementById("prix-moyen").textContent = euros(prix);
-    document.getElementById("gain").textContent = euros(ecart * lots * prix);
-    document.getElementById("calcul").textContent =
-      pct(ecart) + " de lots défectueux en moins × " + lots.toLocaleString("fr-FR") + " lots × " + euros(prix) + " (prix moyen d'un lot)";
-  })();
-</script>
-
-<section class="bloc">
-  <div class="conteneur notes">
-    <div>
-      <h3>Méthode</h3>
-      <p>20 % des lots ont été mis de côté au départ (2 000 lots, jamais montrés
-      au modèle). Huit modèles ont été comparés sur les 80 % restants, avec seulement la vitesse, le couple
-      et l'usure. Les scores du meilleur sont traduits en probabilités de défaut (calibration isotone). Un petit
-      arbre de décision (au plus 4 questions) imite ensuite le verdict « moins de
-      1,1 % de défauts prévus » : il est d'accord avec le modèle sur
-      92,0 % des lots mis de côté. Ses feuilles « bon » sont les boîtes, vérifiées
-      sur les lots mis de côté (intervalle de Clopper-Pearson à 95 %). Une boîte avec moins de
-      30 lots de vérification n'est pas jugée.</p>
-    </div>
-  </div>
-</section>
-
-<section class="contact">
+<section class="contact" id="contact">
   <div class="conteneur">
     <h2>Faites la même étude sur vos données.</h2>
     <div class="equipe">

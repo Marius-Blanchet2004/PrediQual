@@ -75,13 +75,12 @@
       </svg>
       <h2>Bravo, vos données sont bien uploadées.</h2>
     </div>
-    <div class="fichier"><i class="point"></i><b>ai4i2020.csv</b> 10 000 lots · 15 colonnes</div>
+    <div class="fichier"><i class="point"></i><b>Données d'usine disponibles sur internet</b></div>
 
     <div class="exemple" id="exemple" hidden>
       <div class="entete">
         <div>
           <h3 class="sous-titre">En voilà une partie.</h3>
-          <p class="intro">Un lot par ligne : ses réglages, son prix de vente, puis le résultat du contrôle qualité. 20 lignes sur les 10 000.</p>
         </div>
         <a class="bouton noir" id="lancer" href="analyse.html">Lancer l'analyse <span aria-hidden="true">→</span></a>
       </div>
@@ -123,10 +122,6 @@
     `<td>${l[4].toLocaleString("fr-FR")}</td><td>${fr(l[5])}</td><td>${l[6]}</td><td class="prix">${l[8]}</td>` +
     `<td><span class="etat${l[7] ? " ko" : ""}">${l[7] ? "Défaut" : "Bon"}</span></td></tr>`
   ).join("");
-
-  // Le prix moyen part avec l'analyse, pour le calcul du gain sur la page de résultats
-  const prixMoyen = Math.round(LIGNES.reduce((s, l) => s + l[8], 0) / LIGNES.length);
-  document.getElementById("lancer").href = "analyse.html?prix=" + prixMoyen;
 
   // Flèches de l'annotation vers les lots défectueux : elles longent le bord droit du tableau
   // puis rentrent pointer chaque ligne (anime = tracé progressif, sinon simple redessin)
